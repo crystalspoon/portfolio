@@ -393,7 +393,7 @@ html{scroll-behavior:smooth}
 <p class="sign" aria-label="Assinatura: Mayara Andrade" style="margin:0;font-family:'Momo Signature',cursive;font-size:28px;line-height:1.6;color:#222222;padding:24px 56px;white-space:nowrap;overflow:visible">Mayara Andrade</p>
 </div>
 <div style="margin-top:50px;width:100%;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:28px;border-top:1px solid #EDEDED;font-size:13px;color:#6B6B6B">
-<span>© 2026 Mayara Andrade</span>
+<span>© <span id="ano">2026</span> Mayara Andrade</span>
 <span style="font-style:italic">Designer Gráfico · Limeira, SP</span>
 </div>
 </div>
@@ -482,6 +482,7 @@ html{scroll-behavior:smooth}
     glare.style.backgroundPosition = '100% 0';
     glare.style.opacity = 0;
   });
+  document.getElementById('ano').textContent = new Date().getFullYear();
   var mb = document.getElementById('mbtn'), au = document.getElementById('bgm');
   var setOn = function () { mb.classList.add('playing'); mb.setAttribute('aria-label', 'Pausar música'); };
   var start = function () { if (!au.paused) return; au.volume = .5; au.play().then(function () { setOn(); stop(); }).catch(function () {}); };
