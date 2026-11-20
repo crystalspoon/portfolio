@@ -30,6 +30,7 @@ html{scroll-behavior:smooth}
 #inicio.go .hint,#inicio.go .hint2{animation:hintOut .4s ease forwards}
 #inicio.go .gcover{animation:hintOut .5s ease .6s forwards}
 #inicio.go .zoom{animation:zoomIn 1.4s cubic-bezier(.6,0,.9,.55) .9s forwards}
+@keyframes zoomInM{0%{transform:scale(1);opacity:1}85%{opacity:1}100%{transform:scale(520);opacity:0}}
 @keyframes zoomIn{0%{transform:scale(1);opacity:1}85%{opacity:1}100%{transform:scale(120);opacity:0}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -102,6 +103,7 @@ html{scroll-behavior:smooth}
   .zoom .welcome{font-size:34vw !important;line-height:.78 !important;top:calc((100svh - 56px) / 2 - 110px) !important}
   .strap{height:calc(200px + ((56px + 100svh) / 2 - 401px) / 0.62) !important}
   .mbr{display:inline !important}
+  #inicio.go .zoom{animation-name:zoomInM !important}
   .map .node{white-space:normal !important}
   .mbtn{padding:0 12px !important}
   .mlabel{display:none}
@@ -150,7 +152,7 @@ html{scroll-behavior:smooth}
 </div>
 <div class="gcover" aria-hidden="true" style="position:absolute;inset:0;background:#444444"></div>
 <div class="zoom" aria-hidden="true" style="position:absolute;inset:0;background:#FFFFFF;mix-blend-mode:screen;transform-origin:41% 470px">
-<div class="welcome" style="position:absolute;left:0;right:0;top:330px;text-align:center;font-family:'elegant_3','Italiana',serif;font-weight:400;font-size:clamp(60px,21vw,330px);line-height:1;letter-spacing:-.01em;color:#000000;white-space:nowrap;user-select:none">Bem<span class="hy">-</span><br class="mbr">vindo</div>
+<div class="welcome" style="position:absolute;left:0;right:0;top:330px;text-align:center;font-family:'elegant_3','Italiana',serif;font-weight:400;font-size:clamp(60px,21vw,330px);line-height:1;letter-spacing:-.01em;color:#000000;white-space:nowrap;user-select:none">B<span class="ee">e</span>m<span class="hy">-</span><br class="mbr">vindo</div>
 </div>
 <div class="hint2" style="position:absolute;inset:0;z-index:5;pointer-events:none">
 <div class="in-1" style="position:absolute;left:clamp(20px,5vw,72px);bottom:72px;display:flex;flex-direction:column;gap:6px;z-index:2"><span style="font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:#6B6B6B;font-weight:600">Portfólio&nbsp;<br><span style="font-size:20px;font-style:italic;color:#222222;letter-spacing:normal;text-transform:none">Designer Gráfico</span></span></div>
@@ -486,9 +488,10 @@ html{scroll-behavior:smooth}
   });
   document.getElementById('ano').textContent = new Date().getFullYear();
   var centerZoom = function () {
-    var z = document.querySelector('.zoom'), w = z.querySelector('.welcome'), h = z.querySelector('.hy');
-    var fs = parseFloat(getComputedStyle(w).fontSize);
-    z.style.transformOrigin = (w.offsetLeft + h.offsetLeft + fs * 0.156) + 'px ' + (w.offsetTop + h.offsetTop + fs * 0.437) + 'px';
+    var mob = window.matchMedia('(max-width:820px)').matches;
+    var z = document.querySelector('.zoom'), w = z.querySelector('.welcome'), h = z.querySelector(mob ? '.ee' : '.hy');
+    var fs = parseFloat(getComputedStyle(w).fontSize), rx = mob ? 0.249 : 0.156, ry = mob ? 0.5845 : 0.437;
+    z.style.transformOrigin = (w.offsetLeft + h.offsetLeft + fs * rx) + 'px ' + (w.offsetTop + h.offsetTop + fs * ry) + 'px';
   };
   centerZoom(); window.addEventListener('resize', centerZoom);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(centerZoom);
